@@ -1,64 +1,70 @@
 #!/usr/bin/env node
 
 /**
- * Upload videos to Vercel Blob
+ * Upload videos to Cloudflare R2
  * 
  * Usage:
- * 1. Set BLOB_READ_WRITE_TOKEN environment variable:
- *    export BLOB_READ_WRITE_TOKEN="your-token-here"
- * 
+ * 1. Create a .env file and set the required variables (see .env.example)
  * 2. Run this script:
  *    node upload-videos.js
  * 
- * Videos will be uploaded to:
- * https://your-project.blob.vercel-storage.com/video-1.mp4
+ * Videos will be uploaded to your Cloudflare R2 bucket.
  */
 
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 
-const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
-const VIDEOS_DIR = path.join(__dirname, 'videos');
+// Load environment variables
+const {
+  R2_ACCOUNT_ID,
+  R2_ACCESS_KEY_ID,
+  R2_SECRET_ACCESS_KEY,
+  R2_BUCKET_NAME,
+  R2_PUBLIC_URL
+} = process.env;
 
-if (!BLOB_TOKEN) {
-  console.error('❌ Error: BLOB_READ_WRITE_TOKEN environment variable not set');
-  console.error('Set it with: export BLOB_READ_WRITE_TOKEN="your-token"');
+if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY || !R2_BUCKET_NAME) {
+  console.error('❌ Error: Missing required Cloudflare R2 environment variables.');
+  console.error('Make sure you have created a .env file based on .env.example.');
   process.exit(1);
 }
 
-async function uploadVideoToBlob(filePath, fileName) {
+const VIDEOS_DIR = path.join(__dirname, 'videos');
+
+// Initialize S3 Client for Cloudflare R2
+const s3Client = new S3Client({
+  region: 'auto',
+  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  credentials: {
+    accessKeyId: R2_ACCESS_KEY_ID,
+    secretAccessKey: R2_SECRET_ACCESS_KEY,
+  },
+});
+
+async function uploadVideoToR2(filePath, fileName) {
   const fileBuffer = fs.readFileSync(filePath);
-  
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: 'blob.vercel-storage.com',
-      path: `/${fileName}`,
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${BLOB_TOKEN}`,
-        'Content-Type': 'video/mp4',
-        'Content-Length': fileBuffer.length,
-      },
-    };
 
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode === 200) {
-          const json = JSON.parse(data);
-          resolve(json.url);
-        } else {
-          reject(new Error(`Upload failed: ${res.statusCode} - ${data}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    req.write(fileBuffer);
-    req.end();
+  const command = new PutObjectCommand({
+    Bucket: R2_BUCKET_NAME,
+    Key: fileName,
+    Body: fileBuffer,
+    ContentType: 'video/mp4',
   });
+
+  try {
+    await s3Client.send(command);
+    // Return the public URL if configured, otherwise the object key
+    if (R2_PUBLIC_URL) {
+      // Remove trailing slash if present
+      const baseUrl = R2_PUBLIC_URL.replace(/\/$/, '');
+      return `${baseUrl}/${fileName}`;
+    }
+    return fileName;
+  } catch (error) {
+    throw new Error(`Upload failed: ${error.message}`);
+  }
 }
 
 async function uploadAllVideos() {
@@ -74,7 +80,7 @@ async function uploadAllVideos() {
     process.exit(1);
   }
 
-  console.log(`📹 Found ${videos.length} videos. Starting upload...`);
+  console.log(`📹 Found ${videos.length} videos. Starting upload to Cloudflare R2...`);
   console.log('');
 
   const urls = {};
@@ -85,7 +91,7 @@ async function uploadAllVideos() {
     
     try {
       process.stdout.write(`⏳ Uploading ${video} (${fileSize}MB)... `);
-      const url = await uploadVideoToBlob(filePath, video);
+      const url = await uploadVideoToR2(filePath, video);
       urls[video] = url;
       console.log('✅ Done');
     } catch (error) {
