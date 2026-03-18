@@ -1,0 +1,32 @@
+# Media files (too large for GitHub)
+videos/
+*.mp4
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+
+# Vercel
+.vercel/
+.next/
+
+# OS files
+Thumbs.db
