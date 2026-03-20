@@ -95,13 +95,13 @@ section { padding: 6.5rem 4rem; }
 .sec-note { font-size: .85rem; color: var(--muted2); max-width: 260px; text-align: right; line-height: 1.7; }
 
 /* Reel Grid Layout */
-.reel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+.reel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; grid-auto-flow: dense; }
 .reel-card { background: var(--bg); border: 1px solid var(--border); overflow: hidden; }
 .reel-card-1 { grid-column: span 2; grid-row: span 2; } /* Horizontal */
 .reel-card-2 { grid-column: span 1; grid-row: span 2; } /* Vertical */
 .reel-card-3 { grid-column: span 2; grid-row: span 1; } /* Horizontal */
 .reel-card-4 { grid-column: span 2; grid-row: span 1; } /* Horizontal */
-.reel-card-5 { grid-column: span 2; grid-row: span 1; } /* Horizontal */
+.reel-card-5 { grid-column: span 4; grid-row: span 1; } /* Horizontal */
 .reel-card-6 { grid-column: span 1; grid-row: span 2; } /* Vertical */
 .reel-card-7 { grid-column: span 1; grid-row: span 2; } /* Vertical */
 .reel-card-8 { grid-column: span 1; grid-row: span 2; } /* Vertical */
@@ -124,14 +124,14 @@ section { padding: 6.5rem 4rem; }
 
 /* ALBUMS */
 #albums { border-top: 1px solid var(--border); }
-.albums-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.albums-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); grid-auto-flow: dense; }
 .album-card { background: var(--bg); overflow: hidden; position: relative; cursor: pointer; }
 .album-card-1 { grid-column: span 7; }
 .album-card-2 { grid-column: span 5; }
 .album-card-3 { grid-column: span 4; }
 .album-card-4 { grid-column: span 4; }
 .album-card-5 { grid-column: span 4; }
-.album-card-6 { grid-column: span 6; }
+.album-card-6 { grid-column: span 12; }
 
 .album-inner { aspect-ratio: 4/3; background: var(--surface); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
 .album-card-1 .album-inner, .album-card-6 .album-inner { aspect-ratio: 16/10; }
@@ -228,7 +228,7 @@ footer p { font-size: .72rem; color: var(--muted); letter-spacing: .05em; }
   .reel-card-2 { grid-column: span 1; grid-row: span 1; }
   .reel-card-3 { grid-column: span 1; grid-row: span 1; }
   .reel-card-4 { grid-column: span 2; grid-row: span 1; }
-  .reel-card-5 { grid-column: span 1; grid-row: span 1; }
+  .reel-card-5 { grid-column: span 2; grid-row: span 1; }
   .reel-card-6 { grid-column: span 1; grid-row: span 1; }
   .reel-card-7 { grid-column: span 1; grid-row: span 1; }
   .reel-card-8 { grid-column: span 2; grid-row: span 1; }
