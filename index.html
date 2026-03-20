@@ -312,57 +312,29 @@
     <div class="testimonials-track" id="testi-track">
       <!-- Card 1 -->
       <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Sai's editing completely transformed our campaign..."</p>
-        <div class="author-info">
-          <p class="author-name">Priya Mehta</p>
-          <p class="author-title">Marketing Director, TechFlow</p>
+        <div class="testi-header">
+          <a href="#" target="_blank" class="testi-img-link" aria-label="Profile link">
+            <div class="testi-img-placeholder"></div>
+          </a>
+          <div class="author-info-top">
+            <a href="#" target="_blank" class="company-link">Bizz Buzz</a>
+            <p class="author-name-sub">Yash Agarwal</p>
+          </div>
         </div>
+        <p class="quote">"Sai's attention to detail and creative vision elevated our brand to a whole new level. Every cut was precise and impactful."</p>
       </div>
       <!-- Card 2 -->
       <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Working with Sai was effortless. Fast turnaround..."</p>
-        <div class="author-info">
-          <p class="author-name">Rahul Sharma</p>
-          <p class="author-title">Founder, GrowthLab</p>
+        <div class="testi-header">
+          <a href="#" target="_blank" class="testi-img-link" aria-label="Profile link">
+            <div class="testi-img-placeholder"></div>
+          </a>
+          <div class="author-info-top">
+            <a href="#" target="_blank" class="company-link">Brand Studios</a>
+            <p class="author-name-sub">Vikram Singh</p>
+          </div>
         </div>
-      </div>
-      <!-- Card 3 -->
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Incredible photographer and videographer..."</p>
-        <div class="author-info">
-          <p class="author-name">Anjali Patel</p>
-          <p class="author-title">Event Manager, Celebrations Co.</p>
-        </div>
-      </div>
-      <!-- Card 4 -->
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Sai brought our brand story to life..."</p>
-        <div class="author-info">
-          <p class="author-name">Vikram Singh</p>
-          <p class="author-title">Creative Lead, Brand Studios</p>
-        </div>
-      </div>
-      <!-- Card 5 -->
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Outstanding work on our product launch video..."</p>
-        <div class="author-info">
-          <p class="author-name">Neha Gupta</p>
-          <p class="author-title">Product Manager, InnovateTech</p>
-        </div>
-      </div>
-      <!-- Card 6 -->
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Best video editor I've worked with..."</p>
-        <div class="author-info">
-          <p class="author-name">Arjun Reddy</p>
-          <p class="author-title">Content Creator</p>
-        </div>
+        <p class="quote">"An absolute professional. The workflow was seamless, and the final cinematic delivery completely exceeded our expectations."</p>
       </div>
     </div>
   </div>
@@ -417,7 +389,7 @@ const btnNext = document.getElementById('testi-next');
 
 if (track && btnPrev && btnNext) {
   let currentIndex = 0;
-  const totalCards = 6;
+  const totalCards = track.children.length;
   
   const updateCarousel = () => {
     const cardsVisible = window.innerWidth > 768 ? 3 : 1;
