@@ -291,9 +291,86 @@
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="sec-header">
+    <div>
+      <p class="s-label">04 — Client Feedback</p>
+      <h2 class="s-title">What People Say</h2>
+    </div>
+    <div class="testi-nav">
+      <button class="testi-btn" id="testi-prev" disabled aria-label="Previous testimonial">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+      <button class="testi-btn" id="testi-next" aria-label="Next testimonial">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+  </div>
+  
+  <div class="testimonials-wrap">
+    <div class="testimonials-track" id="testi-track">
+      <!-- Card 1 -->
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Sai's editing completely transformed our campaign..."</p>
+        <div class="author-info">
+          <p class="author-name">Priya Mehta</p>
+          <p class="author-title">Marketing Director, TechFlow</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Working with Sai was effortless. Fast turnaround..."</p>
+        <div class="author-info">
+          <p class="author-name">Rahul Sharma</p>
+          <p class="author-title">Founder, GrowthLab</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Incredible photographer and videographer..."</p>
+        <div class="author-info">
+          <p class="author-name">Anjali Patel</p>
+          <p class="author-title">Event Manager, Celebrations Co.</p>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Sai brought our brand story to life..."</p>
+        <div class="author-info">
+          <p class="author-name">Vikram Singh</p>
+          <p class="author-title">Creative Lead, Brand Studios</p>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Outstanding work on our product launch video..."</p>
+        <div class="author-info">
+          <p class="author-name">Neha Gupta</p>
+          <p class="author-title">Product Manager, InnovateTech</p>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Best video editor I've worked with..."</p>
+        <div class="author-info">
+          <p class="author-name">Arjun Reddy</p>
+          <p class="author-title">Content Creator</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
-  <p class="s-label" style="justify-content:center;">04 — Get in touch</p>
+  <p class="s-label" style="justify-content:center;">05 — Get in touch</p>
   <h2 class="contact-big">
     Let's work<br>
     <a href="mailto:your@email.com">together.</a>
@@ -322,7 +399,7 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 
-document.querySelectorAll('.gc, .reel-frame, .about-big, .about-r, .sec-header').forEach((el, i) => {
+document.querySelectorAll('.gc, .reel-frame, .about-big, .about-r, .sec-header, .testimonial-card').forEach((el, i) => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity .55s ease, transform .55s ease';
@@ -332,6 +409,46 @@ document.querySelectorAll('.gc, .reel-frame, .about-big, .about-r, .sec-header')
 document.querySelectorAll('.gc').forEach((el, i) => {
   el.style.transitionDelay = (i * 0.06) + 's';
 });
+
+// Testimonials Carousel
+const track = document.getElementById('testi-track');
+const btnPrev = document.getElementById('testi-prev');
+const btnNext = document.getElementById('testi-next');
+
+if (track && btnPrev && btnNext) {
+  let currentIndex = 0;
+  const totalCards = 6;
+  
+  const updateCarousel = () => {
+    const cardsVisible = window.innerWidth > 768 ? 3 : 1;
+    const maxIndex = Math.max(0, totalCards - cardsVisible);
+    
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+    if (currentIndex < 0) currentIndex = 0;
+    
+    // Card width + gap (1.25rem = 20px)
+    const cardWidth = track.children[0].offsetWidth;
+    const gap = 20;
+    
+    track.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+    
+    btnPrev.disabled = currentIndex === 0;
+    btnNext.disabled = currentIndex === maxIndex;
+  };
+
+  btnPrev.addEventListener('click', () => {
+    currentIndex--;
+    updateCarousel();
+  });
+
+  btnNext.addEventListener('click', () => {
+    currentIndex++;
+    updateCarousel();
+  });
+
+  window.addEventListener('resize', updateCarousel);
+  setTimeout(updateCarousel, 100);
+}
 </script>
 </body>
 </html>
