@@ -602,6 +602,19 @@ if (form) {
   }, { threshold: 0.1 });
   fields.forEach(f => formObserver.observe(f));
 }
+
+// Reel Videos Play/Pause Logic
+const muxPlayers = document.querySelectorAll('.reel-card mux-player');
+muxPlayers.forEach(player => {
+  player.addEventListener('play', () => {
+    player.muted = false;
+    muxPlayers.forEach(otherPlayer => {
+      if (otherPlayer !== player) {
+        otherPlayer.pause();
+      }
+    });
+  });
+});
 </script>
 </body>
 </html>
