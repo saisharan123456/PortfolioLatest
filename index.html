@@ -161,7 +161,7 @@
       <div class="reel-meta">
         <div class="reel-meta-l">
           <strong>Joanna MacGregor G20</strong>
-          <p>Event Recap</p>
+          <p>Event speech recap</p>
         </div>
         <span class="reel-meta-r">Motion</span>
       </div>
@@ -354,12 +354,77 @@ He's not the kind of editor you have to babysit. And in this industry, that's wo
     Let's work<br>
     <em style="color: var(--hl); font-style: italic; font-weight: 400;">together.</em>
   </h2>
-  <p class="contact-sub">Open for freelance video editing and photography projects. Drop a message — I respond fast.</p>
-  <ul class="socials">
-    <li><a href="https://www.instagram.com/true_dilectic/">Instagram</a></li>
-    <li><a href="https://linkedin.com/in/sai-sharan-876559326">LinkedIn</a></li>
-    <li><a href="mailto:saisharan794@gmail.com">Email</a></li>
-  </ul>
+  <p class="contact-sub">Open for freelance videography, video editing and photography projects.</p>
+
+  <div class="contact-form-wrap">
+    <form id="contact-form" action="https://formsubmit.co/saisharan794@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New contact form submission from portfolio">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+
+      <div class="form-row">
+        <div class="form-group field-anim">
+          <label for="name">Name <span class="req-star">*</span></label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+          <span class="error-msg">Please enter your name</span>
+        </div>
+        <div class="form-group field-anim">
+          <label for="email">Email <span class="req-star">*</span></label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          <span class="error-msg">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group field-anim">
+        <label for="project">Project Type <span class="req-star">*</span></label>
+        <div class="select-wrapper">
+          <select id="project" name="project" required>
+            <option value="" disabled selected>Select a project type</option>
+            <option value="Video Editing">Video Editing</option>
+            <option value="Videography">Videography</option>
+            <option value="Photography">Photography</option>
+            <option value="Motion Design">Motion Design</option>
+            <option value="Color Grading">Color Grading</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Full Production">Full Production</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <span class="error-msg">Please select a project type</span>
+      </div>
+
+      <div class="form-group field-anim">
+        <label for="message">Message <span class="req-star">*</span></label>
+        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+        <div class="msg-footer">
+          <span class="error-msg">Message must be at least 20 characters</span>
+          <span class="char-count">0 / 20 minimum</span>
+        </div>
+      </div>
+
+      <div class="form-group field-anim">
+        <button type="submit" id="submit-btn" class="submit-btn" aria-live="polite">
+          <div class="submit-content default-state">Send Message</div>
+          <div class="submit-content loading-state">
+            <span class="btn-spinner"></span>
+          </div>
+          <div class="submit-content success-state">
+            <span>Sent</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="tick-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </button>
+        <div id="success-msg" class="success-msg">Message sent! I'll get back to you within 24 hours.</div>
+      </div>
+    </form>
+  </div>
+
+  <div class="contact-footer">
+    <div class="footer-line"></div>
+    <ul class="socials">
+      <li><a href="https://www.instagram.com/true_dilectic/" target="_blank">Instagram</a></li>
+      <li><a href="https://linkedin.com/in/sai-sharan-876559326" target="_blank">LinkedIn</a></li>
+    </ul>
+  </div>
 </section>
 
 <footer>
@@ -427,6 +492,96 @@ if (track && btnPrev && btnNext) {
 
   window.addEventListener('resize', updateCarousel);
   setTimeout(updateCarousel, 100);
+}
+
+// Contact Form Logic
+const form = document.getElementById('contact-form');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const projectSelect = document.getElementById('project');
+const msgInput = document.getElementById('message');
+const charCount = document.querySelector('.char-count');
+const submitBtn = document.getElementById('submit-btn');
+const successMsg = document.getElementById('success-msg');
+
+if (form) {
+  msgInput.addEventListener('input', () => {
+    const len = msgInput.value.length;
+    charCount.textContent = `${len} / 20 minimum`;
+    if (len >= 20) charCount.classList.add('valid');
+    else charCount.classList.remove('valid');
+  });
+
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const checkField = (input, condition) => {
+    const group = input.closest('.form-group');
+    if (condition) group.classList.remove('has-error');
+    else group.classList.add('has-error');
+    return condition;
+  };
+
+  const validateAll = () => {
+    const isValidName = checkField(nameInput, nameInput.value.trim().length > 0);
+    const isValidEmail = checkField(emailInput, validateEmail(emailInput.value.trim()));
+    const isValidProject = checkField(projectSelect, projectSelect.value !== "");
+    const isValidMsg = checkField(msgInput, msgInput.value.trim().length >= 20);
+    return isValidName && isValidEmail && isValidProject && isValidMsg;
+  };
+
+  nameInput.addEventListener('blur', () => checkField(nameInput, nameInput.value.trim().length > 0));
+  emailInput.addEventListener('blur', () => checkField(emailInput, validateEmail(emailInput.value.trim())));
+  projectSelect.addEventListener('change', () => checkField(projectSelect, projectSelect.value !== ""));
+  msgInput.addEventListener('blur', () => checkField(msgInput, msgInput.value.trim().length >= 20));
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!validateAll()) {
+      submitBtn.classList.add('shake');
+      setTimeout(() => submitBtn.classList.remove('shake'), 400);
+      return;
+    }
+
+    submitBtn.classList.add('loading');
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      if(response.ok) {
+        submitBtn.classList.remove('loading');
+        submitBtn.classList.add('success');
+        successMsg.classList.add('show');
+        
+        setTimeout(() => {
+          form.reset();
+          charCount.textContent = "0 / 20 minimum";
+          charCount.classList.remove('valid');
+          submitBtn.classList.remove('success');
+          successMsg.classList.remove('show');
+        }, 3000);
+      } else throw new Error('Form submission failed');
+    })
+    .catch(error => {
+      submitBtn.classList.remove('loading');
+      alert("Oops! There was a problem submitting your form.");
+    });
+  });
+
+  const fields = document.querySelectorAll('.field-anim');
+  const formObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, Array.from(fields).indexOf(entry.target) * 50);
+        formObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  fields.forEach(f => formObserver.observe(f));
 }
 </script>
 </body>
