@@ -536,8 +536,6 @@ if (form) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!validateAll()) {
-      submitBtn.classList.add('shake');
-      setTimeout(() => submitBtn.classList.remove('shake'), 400);
       return;
     }
 
