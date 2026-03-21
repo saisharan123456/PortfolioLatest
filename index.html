@@ -348,38 +348,41 @@ He's not the kind of editor you have to babysit. And in this industry, that's wo
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="contact-container">
-    <div class="field-anim">
-      <p class="s-label">05 — Get in touch</p>
-      <h2 class="contact-big">
-        Let's work<br>
-        <em style="color: var(--hl); font-style: italic; font-weight: 400;">together.</em>
-      </h2>
-      <p class="contact-sub">Open for freelance videography, video editing and photography projects.</p>
-    </div>
-
-    <div class="contact-form-wrap">
-    <form id="contact-form" action="https://formsubmit.co/saisharan794@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="New contact form submission from portfolio">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-
-      <div class="form-row">
-        <div class="form-group field-anim">
-          <label for="name">Name <span class="req-star">*</span></label>
+<section class="contact-section" id="contact">
+  <div class="section-label field-anim">05 — Get in touch</div>
+  
+  <div class="headline field-anim">
+    <div class="headline-main">Let's work</div>
+    <div class="headline-accent">together.</div>
+  </div>
+  
+  <p class="description field-anim">
+    Open for freelance videography, video editing and photography projects.
+  </p>
+  
+  <form class="contact-form field-anim" id="contact-form" action="https://formsubmit.co/saisharan794@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="New contact form submission from portfolio">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    
+    <div class="form-grid">
+      
+      <div class="two-col">
+        <div class="form-group">
+          <label for="name">Name *</label>
           <input type="text" id="name" name="name" placeholder="Your name" required>
           <span class="error-msg">Please enter your name</span>
         </div>
-        <div class="form-group field-anim">
-          <label for="email">Email <span class="req-star">*</span></label>
+        
+        <div class="form-group">
+          <label for="email">Email *</label>
           <input type="email" id="email" name="email" placeholder="your@email.com" required>
           <span class="error-msg">Please enter a valid email</span>
         </div>
       </div>
-
-      <div class="form-group field-anim">
-        <label for="project">Project Type <span class="req-star">*</span></label>
+      
+      <div class="form-group">
+        <label for="project">Project Type *</label>
         <div class="select-wrapper">
           <select id="project" name="project" required>
             <option value="" disabled selected>Select a project type</option>
@@ -395,39 +398,37 @@ He's not the kind of editor you have to babysit. And in this industry, that's wo
         </div>
         <span class="error-msg">Please select a project type</span>
       </div>
-
-      <div class="form-group field-anim">
-        <label for="message">Message <span class="req-star">*</span></label>
+      
+      <div class="form-group">
+        <label for="message">Message *</label>
         <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
         <div class="msg-footer">
           <span class="error-msg">Message must be at least 20 characters</span>
-          <span class="char-count">0 / 20 minimum</span>
+          <div class="char-count">0 / 20 minimum</div>
         </div>
       </div>
-
-      <div class="form-group field-anim">
-        <button type="submit" id="submit-btn" class="submit-btn" aria-live="polite">
-          <div class="submit-content default-state">Send Message</div>
-          <div class="submit-content loading-state">
-            <span class="btn-spinner"></span>
-          </div>
-          <div class="submit-content success-state">
-            <span>Sent</span>
-            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="tick-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-        </button>
-        <div id="success-msg" class="success-msg">Message sent! I'll get back to you within 24 hours.</div>
-      </div>
-      </form>
+      
     </div>
-
-    <div class="contact-footer">
-      <ul class="socials">
-        <li><a href="https://www.instagram.com/true_dilectic/" class="social-link" target="_blank">Instagram</a></li>
-        <li><a href="https://linkedin.com/in/sai-sharan-876559326" class="social-link" target="_blank">LinkedIn</a></li>
-      </ul>
+    
+    <div class="form-group">
+      <button type="submit" id="submit-btn" class="submit-btn" aria-live="polite">
+        <div class="submit-content default-state">Send Message</div>
+        <div class="submit-content loading-state">
+          <span class="btn-spinner"></span>
+        </div>
+        <div class="submit-content success-state">
+          <span>Sent</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="tick-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </button>
+      <div id="success-msg" class="success-msg">Message sent! I'll get back to you within 24 hours.</div>
     </div>
-  </div>
+  </form>
+  
+  <ul class="social-links field-anim">
+    <li><a href="https://www.instagram.com/true_dilectic/" class="social-link" target="_blank">Instagram</a></li>
+    <li><a href="https://linkedin.com/in/sai-sharan-876559326" class="social-link" target="_blank">LinkedIn</a></li>
+  </ul>
 </section>
 
 <footer>
