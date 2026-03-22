@@ -85,21 +85,19 @@ nav::before {
   border-right: 1px solid var(--hl); border-top: 1px solid var(--hl);
   transform: rotate(45deg);
 }
-.hero-right { position: relative; overflow: hidden; border-left: 1px solid var(--border); }
+.hero-right { position: relative; overflow: hidden; }
 .hero-vid-wrap {
-  position: absolute; inset: 0; background: var(--surface);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+  position: absolute; inset: 0; background: transparent;
+  display: flex; align-items: center; justify-content: center;
 }
 .hero-vid-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .75; }
 .hero-vid-wrap iframe, .hero-vid-wrap mux-player {
-  position: absolute;
-  inset: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
   pointer-events: none;
-  --media-object-fit: cover;
-  mix-blend-mode: normal;
-  opacity: 0.95;
+  --media-object-fit: contain;
 }
 
 :root[data-theme="light"] .hero-right::after {
