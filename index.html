@@ -12,17 +12,45 @@
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script>
+  const savedTheme = localStorage.getItem('theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+</script>
 </head>
 <body>
 
 <nav>
   <a class="nav-logo" href="#">SS</a>
-  <ul class="nav-links">
-    <li><a href="#reel">Work</a></li>
-    <li><a href="#albums">Albums</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-right" style="display: flex; align-items: center;">
+    <ul class="nav-links">
+      <li><a href="#reel">Work</a></li>
+      <li><a href="#albums">Albums</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+        <mask class="moon" id="moon-mask">
+          <rect x="0" y="0" width="100%" height="100%" fill="white" />
+          <circle cx="24" cy="10" r="6" fill="black" />
+        </mask>
+        <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+        <g class="sun-beams" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </g>
+      </svg>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -615,6 +643,21 @@ muxPlayers.forEach(player => {
     });
   });
 });
+
+// Theme Toggle Logic
+const themeBtn = document.getElementById('theme-toggle');
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? 'dark' : 'light';
+    if (newTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    localStorage.setItem('theme', newTheme);
+  });
+}
 </script>
 </body>
 </html>
