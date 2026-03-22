@@ -629,6 +629,17 @@ if (form) {
     });
   }, { threshold: 0.1 });
   fields.forEach(f => formObserver.observe(f));
+
+  const generalAnimElements = document.querySelectorAll('.gc, .reel-frame, .about-big, .about-r, .sec-header, .testimonial-card');
+  const generalObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        generalObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  generalAnimElements.forEach(el => generalObserver.observe(el));
 }
 
 // Reel Videos Play/Pause Logic
